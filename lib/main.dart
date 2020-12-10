@@ -28,6 +28,7 @@ class _RandomWordsState extends State<RandomWords> {
   @override
   final _suggestions = <WordPair>[];
   final _biggerFont = TextStyle(fontSize: 18.0);
+  final _saved = Set<WordPair>();
 
   Widget _buildSuggestions() {
     return ListView.builder(
@@ -44,10 +45,15 @@ class _RandomWordsState extends State<RandomWords> {
   }
 
   Widget _buildRow(WordPair pair) {
+    final _alreadySaved = _saved.contains(pair);
     return ListTile(
       title: Text(
         pair.asPascalCase,
         style: _biggerFont,
+      ),
+      trailing: Icon(
+        _alreadySaved ? Icons.favorite : Icons.favorite_border,
+        color: _alreadySaved ? Colors.red : null,
       ),
     );
   }
